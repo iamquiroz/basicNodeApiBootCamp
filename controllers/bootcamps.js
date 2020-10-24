@@ -11,8 +11,8 @@ exports.getBootcamps = async (request, response, next) => {
     response
       .status(200)
       .json({ success: true, count: bootcamps.lenght, data: bootcamps });
-  } catch (error) {
-    response.status(400).json({ success: false });
+  } catch (err) {
+   next(err);
   }
 };
 
@@ -24,16 +24,17 @@ exports.getBootcamp = async (request, response, next) => {
     //  const bootcamp = await Bootcamp.find (request.params.id);
     const bootcamp = await Bootcamp.findById(request.params.id);
     return next(
-      new ErrorResponse(`Bootcamp not found with id of ${request.params.id}`, 404)
+      new ErrorResponse(
+        `Bootcamp not found with id of ${request.params.id}`,
+        404
+      )
     );
 
     if (!bootcamp) {
       return response.status(400).json({ success: false });
     }
-  } catch (error) {
-    next(
-      new ErrorResponse(`Bootcamp not found with id of ${request.params.id}`, 404)
-    );
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -52,8 +53,8 @@ exports.createBootcamp = async (req, res, next) => {
     } else {
       res.status(201).json({ success: true, data: bootcamp });
     }
-  } catch (error) {
-    res.status(403).json({ success: false });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -67,11 +68,14 @@ exports.updateBootcamp = async (req, res, next) => {
       runValidators: true,
     });
     if (!bootcamp) {
-      return res.status(400).json({ success: false });
+      new ErrorResponse(
+        `Bootcamp not found with id of ${request.params.id}`,
+        404
+      )
     }
     res.status(200).json({ success: true, data: bootcamp });
-  } catch (error) {
-    res.status(400).json({ success: false });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -83,11 +87,14 @@ exports.deleteBootcamp = async (req, res, next) => {
     let bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
 
     if (!bootcamp) {
-      return res.status(400).json({ success: false });
+      new ErrorResponse(
+        `Bootcamp not found with id of ${request.params.id}`,
+        404
+      )
     }
 
     res.status(200).json({ success: true, data: {} });
-  } catch (error) {
-    res.status(400).json({ success: false });
+  } catch (err) {
+    next(err);
   }
 };
