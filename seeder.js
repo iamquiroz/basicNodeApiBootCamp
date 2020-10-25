@@ -25,29 +25,30 @@ const bootcamps = JSON.parse(
 
 // Import into DB
 const importData = async () => {
-    try {
-        await Bootcamp.create(bootcamps);
-        console.log('Data Imported...'.green.inverse);
-        process.exit();
-    } catch (error) {
-        console.error(error);
-    }
-}
+  try {
+    await Bootcamp.create(bootcamps);
+    console.log("Data Imported...".green.inverse);
+    process.exit();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // Deleted data
 
 const deleteData = async () => {
-    try {
-        await bootcamps.deleteMany();
+  try {
+    await Bootcamp.deleteMany();
 
-        console.log('Data Destroyed...'.red.inverse);
-    } catch (error) {
-        console.error(err);
-    }
-}
+    console.log("Data Destroyed...".red.inverse);
+    process.exit();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-if (process.argv[2] === '-i') {
-    importData();
-} else if( process.argv[2] === '-d'){
-    deleteData();
+if (process.argv[2] === "-i") {
+  importData();
+} else if (process.argv[2] === "-d") {
+  deleteData();
 }
