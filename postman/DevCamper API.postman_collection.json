@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "37954c9a-ff92-4bda-9fb9-bd607e02e40b",
+		"name": "DevCamper API",
+		"description": "Backend API for the DevCamper application to manage bootcamps, courses, reviews, users and authentication.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Bootcamps",
+			"item": [
+				{
+					"name": "Get All Bootcamps",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps?averageCost[gte]=10000&location.city=Boston",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "averageCost[gte]",
+									"value": "10000"
+								},
+								{
+									"key": "location.city",
+									"value": "Boston"
+								}
+							]
+						},
+						"description": "Fetch all bootcamps from database. Includes pagination, filtering, etc."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Bootcamp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"1"
+							]
+						},
+						"description": "Get single bootcamp by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Bootcamp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"name\": \"ModernTech Bootcamp\",\n    \"description\": \"ModernTech has one goal, and that is to make you a rockstar developer and/or designer with a six figure salary. We teach both development and UI/UX\",\n    \"website\": \"https://moderntech.com\",\n    \"phone\": \"(222) 222-2222\",\n    \"email\": \"enroll@moderntech.com\",\n    \"address\": \"220 Pawtucket St, Lowell, MA 01854\",\n    \"careers\": [\"Web Development\", \"UI/UX\", \"Mobile Development\"],\n    \"housing\": false,\n    \"jobAssistance\": true,\n    \"jobGuarantee\": false,\n    \"acceptGi\": true\n  }"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							]
+						},
+						"description": "Add new bootcamp to database. Must be authenticated and must be publisher or admin."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Bootcamp",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"1"
+							]
+						},
+						"description": "Update single Bootcamp in database."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Bootcamp",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"1"
+							]
+						},
+						"description": "Delete a Bootcamp from database."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bootcamps By Distance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/radius/02118/10",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"radius",
+								"02118",
+								"10"
+							]
+						},
+						"description": "Get bootcamps within a radius of a specific zipcode"
+					},
+					"response": []
+				},
+				{
+					"name": " Get All Bootcamps by housing and state",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps?housing=true&location.state=MA",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "housing",
+									"value": "true"
+								},
+								{
+									"key": "location.state",
+									"value": "MA"
+								}
+							]
+						},
+						"description": "Get all Bootcamps by housing and state"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Bootcamps by averageCost and city",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps?averageCost[gte]=10000&location.city=Boston",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "averageCost[gte]",
+									"value": "10000"
+								},
+								{
+									"key": "location.city",
+									"value": "Boston"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Bootcamps CRUD functionality",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
