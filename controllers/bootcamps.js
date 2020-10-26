@@ -7,7 +7,33 @@ const Bootcamp = require("../models/Bootcamps");
 // @route   GET /api/v1/bootcamps
 // @access  Public
 exports.getBootcamps = asyncHandler(async (request, response, next) => {
-  const bootcamps = await Bootcamp.find();
+  let query;
+
+  // Copy req.query
+  const reqQuery = { ...request.query };
+
+  // Fields to execute
+  const removeFields = ['select'];
+
+  // Loop over remoFields and delete them from reqQuery
+  removeFields.forEach(param => delete reqQuery[param]);
+
+  console.log(reqQuery);
+
+  // Copy query string
+  let queryStr = JSON.stringify(reqQuery);
+
+  // Create operators ($gt, $gte, $lt, $lte, etc)
+  queryStr = queryStr.replace(
+    /\b(gt|gte|lt|lte|in)\b/g,
+    (match) => `$${match}`
+  );
+
+  // Finding resource
+  query = Bootcamp.find(JSON.parse(queryStr));
+
+ // Executing query
+  const bootcamps = await query;
 
   response
     .status(200)
@@ -99,6 +125,6 @@ exports.getBootcampsInRadius = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     count: bootcamps.lenght,
-    data: bootcamps
-  })
+    data: bootcamps,
+  });
 });
